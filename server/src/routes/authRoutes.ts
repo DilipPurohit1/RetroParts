@@ -4,6 +4,7 @@ import {
   register,
   login,
   handleGoogleCallback,
+  googleDirectLogin,
   refreshTokenHandler,
   logout,
   getMe,
@@ -16,6 +17,7 @@ const router = express.Router();
 
 router.post('/register', register);
 router.post('/login', login);
+router.post('/google-direct', googleDirectLogin);
 router.post('/refresh', refreshTokenHandler);
 router.post('/logout', logout);
 

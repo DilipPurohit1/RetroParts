@@ -145,6 +145,60 @@ export const handleGoogleCallback = async (req: Request, res: Response): Promise
   }
 };
 
+export const googleDirectLogin = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { email, name, avatar } = req.body;
+    if (!email) {
+      res.status(400).json({ success: false, message: 'Google email is required.' });
+      return;
+    }
+
+    const cleanEmail = email.toLowerCase().trim();
+    let user = await User.findOne({ email: cleanEmail });
+
+    if (!user) {
+      user = await User.create({
+        name: name || cleanEmail.split('@')[0] || 'Retro Enthusiast',
+        email: cleanEmail,
+        googleId: `google_${Date.now()}`,
+        authProvider: 'google',
+        avatar: avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+        role: 'buyer',
+      });
+    } else if (!user.googleId) {
+      user.googleId = `google_${Date.now()}`;
+      user.authProvider = user.authProvider === 'local' ? 'both' : 'google';
+      if (avatar && !user.avatar) user.avatar = avatar;
+      await user.save();
+    }
+
+    const { accessToken, refreshToken } = generateTokens(user._id.toString(), user.role);
+    setRefreshTokenCookie(res, refreshToken);
+
+    res.json({
+      success: true,
+      token: accessToken,
+      user: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        role: user.role,
+        avatar: user.avatar,
+        bio: user.bio,
+        location: user.location,
+        isVerifiedSeller: user.isVerifiedSeller,
+        verificationStatus: user.verificationStatus,
+        sellerRating: user.sellerRating,
+        sellerReviewCount: user.sellerReviewCount,
+        savedVehicles: user.savedVehicles || [],
+      },
+    });
+  } catch (error: any) {
+    res.status(500).json({ success: false, message: error.message || 'Google sign-in failed.' });
+  }
+};
+
 export const refreshTokenHandler = async (req: Request, res: Response): Promise<void> => {
   try {
     const token = req.cookies?.retroparts_refresh_token || req.body?.refreshToken;

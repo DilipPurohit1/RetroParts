@@ -6,12 +6,14 @@ import { DEMO_USERS } from '../utils/constants.js';
 import { Button } from '../components/common/Button.js';
 import { Input } from '../components/common/Input.js';
 import { HeritageLogo } from '../components/common/HeritageLogo.js';
+import { GoogleSignInModal } from '../components/common/GoogleSignInModal.js';
 
 export const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [isGoogleModalOpen, setIsGoogleModalOpen] = useState(false);
 
   const { login, demoLogin } = useAuth();
   const navigate = useNavigate();
@@ -41,7 +43,7 @@ export const Login: React.FC = () => {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = '/api/auth/google';
+    setIsGoogleModalOpen(true);
   };
 
   return (
@@ -177,6 +179,13 @@ export const Login: React.FC = () => {
           </Link>
         </div>
       </div>
+
+      {/* Google Sign In Modal */}
+      <GoogleSignInModal
+        isOpen={isGoogleModalOpen}
+        onClose={() => setIsGoogleModalOpen(false)}
+        onSuccess={() => navigate(from, { replace: true })}
+      />
     </div>
   );
 };

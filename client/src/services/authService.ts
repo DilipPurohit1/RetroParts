@@ -12,6 +12,11 @@ export const authService = {
     return res.data;
   },
 
+  googleLogin: async (data: { email: string; name?: string; avatar?: string }): Promise<{ token: string; user: IUser }> => {
+    const res = await API.post('/auth/google-direct', data);
+    return res.data;
+  },
+
   getMe: async (): Promise<{ user: IUser }> => {
     const res = await API.get('/auth/me');
     return res.data;

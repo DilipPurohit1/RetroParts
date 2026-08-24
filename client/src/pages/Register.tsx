@@ -6,6 +6,7 @@ import { useToast } from '../context/ToastContext.js';
 import { Button } from '../components/common/Button.js';
 import { Input } from '../components/common/Input.js';
 import { HeritageLogo } from '../components/common/HeritageLogo.js';
+import { GoogleSignInModal } from '../components/common/GoogleSignInModal.js';
 
 export const Register: React.FC = () => {
   const [name, setName] = useState('');
@@ -14,7 +15,9 @@ export const Register: React.FC = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [role, setRole] = useState<'buyer' | 'seller'>('buyer');
+  const [agreeTerms, setAgreeTerms] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isGoogleModalOpen, setIsGoogleModalOpen] = useState(false);
 
   const { register } = useAuth();
   const { error } = useToast();
@@ -34,6 +37,11 @@ export const Register: React.FC = () => {
       return;
     }
 
+    if (!agreeTerms) {
+      error('You must agree to the terms and conditions.', 'Validation Error');
+      return;
+    }
+
     setLoading(true);
     const success = await register({
       name,
@@ -49,7 +57,7 @@ export const Register: React.FC = () => {
   };
 
   const handleGoogleSignup = () => {
-    window.location.href = '/api/auth/google';
+    setIsGoogleModalOpen(true);
   };
 
   return (
@@ -210,6 +218,13 @@ export const Register: React.FC = () => {
           </Link>
         </div>
       </div>
+
+      {/* Google Sign In Modal */}
+      <GoogleSignInModal
+        isOpen={isGoogleModalOpen}
+        onClose={() => setIsGoogleModalOpen(false)}
+        onSuccess={() => navigate('/dashboard')}
+      />
     </div>
   );
 };

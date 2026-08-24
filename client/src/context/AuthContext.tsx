@@ -10,6 +10,7 @@ interface AuthContextType {
   login: (credentials: { email: string; password: string }) => Promise<boolean>;
   register: (userData: any) => Promise<boolean>;
   demoLogin: (email: string) => Promise<boolean>;
+  googleSignIn: (data: { email: string; name?: string; avatar?: string }) => Promise<boolean>;
   logout: () => void;
   updateUser: (userData: Partial<IUser>) => void;
   refreshUser: () => Promise<void>;
@@ -69,6 +70,23 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     return login({ email, password: 'password123' });
   };
 
+  const googleSignIn = async (data: { email: string; name?: string; avatar?: string }): Promise<boolean> => {
+    try {
+      setLoading(true);
+      const res = await authService.googleLogin(data);
+      localStorage.setItem('retroparts_token', res.token);
+      setToken(res.token);
+      setUser(res.user);
+      success(`Signed in with Google as ${res.user.name}!`, 'Google Sign-In');
+      return true;
+    } catch (err: any) {
+      error(err.response?.data?.message || 'Google sign-in failed.', 'Error');
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const register = async (userData: any): Promise<boolean> => {
     try {
       setLoading(true);
@@ -93,9 +111,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     success('You have been logged out safely.', 'Logged Out');
   };
 
-  const updateUser = (updated: Partial<IUser>) => {
+  const updateUser = (userData: Partial<IUser>) => {
     if (user) {
-      setUser({ ...user, ...updated });
+      setUser({ ...user, ...userData });
     }
   };
 
@@ -111,10 +129,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         login,
         register,
         demoLogin,
+        googleSignIn,
         logout,
         updateUser,
         refreshUser,
-        isAuthenticated: !!user,
+        isAuthenticated: !!token && !!user,
         isSeller,
         isAdmin,
       }}
