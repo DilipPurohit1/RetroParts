@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <radialGradient id="bgDark6" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#181A20"/>
+      <stop offset="100%" stop-color="#0A0B0E"/>
+    </radialGradient>
+    <linearGradient id="inoxGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="30%" stop-color="#E2E8F0"/>
+      <stop offset="60%" stop-color="#94A3B8"/>
+      <stop offset="85%" stop-color="#64748B"/>
+      <stop offset="100%" stop-color="#334155"/>
+    </linearGradient>
+    <linearGradient id="weldGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="50%" stop-color="#8B5CF6"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" fill="url(#bgDark6)"/>
+  <!-- CNC Laser-Cut Cylinder Head Flange (Top) -->
+  <rect x="50" y="45" width="300" height="24" rx="4" fill="url(#inoxGrad)" stroke="#0F172A" stroke-width="3"/>
+  <!-- 4 Exhaust Port Inlets -->
+  <circle cx="95" cy="57" r="14" fill="#0A0B0E" stroke="#94A3B8" stroke-width="2"/>
+  <circle cx="165" cy="57" r="14" fill="#0A0B0E" stroke="#94A3B8" stroke-width="2"/>
+  <circle cx="235" cy="57" r="14" fill="#0A0B0E" stroke="#94A3B8" stroke-width="2"/>
+  <circle cx="305" cy="57" r="14" fill="#0A0B0E" stroke="#94A3B8" stroke-width="2"/>
+  <!-- 4 Primary Mandrel-Bent Runners (Pair 1 & 4, Pair 2 & 3) -->
+  <g fill="none" stroke="url(#inoxGrad)" stroke-width="20" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 95 69 C 95 140 130 180 150 210"/>
+    <path d="M 165 69 C 165 130 160 170 155 210"/>
+    <path d="M 235 69 C 235 130 240 170 245 210"/>
+    <path d="M 305 69 C 305 140 270 180 250 210"/>
+  </g>
+  <!-- 2 Secondary Collectors (2-into-1) with Titanium TIG Weld Rings -->
+  <rect x="135" y="205" width="35" height="15" rx="3" fill="url(#inoxGrad)" stroke="#0F172A" stroke-width="2"/>
+  <line x1="135" y1="212" x2="170" y2="212" stroke="url(#weldGlow)" stroke-width="3"/>
+  <rect x="230" y="205" width="35" height="15" rx="3" fill="url(#inoxGrad)" stroke="#0F172A" stroke-width="2"/>
+  <line x1="230" y1="212" x2="265" y2="212" stroke="url(#weldGlow)" stroke-width="3"/>
+  <!-- Secondary Downpipes to Final Collector -->
+  <g fill="none" stroke="url(#inoxGrad)" stroke-width="24" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 152 220 C 152 270 185 300 200 320"/>
+    <path d="M 248 220 C 248 270 215 300 200 320"/>
+  </g>
+  <!-- Final 2.5-Inch Collector & 2-Bolt Flange -->
+  <rect x="180" y="315" width="40" height="35" rx="4" fill="url(#inoxGrad)" stroke="#0F172A" stroke-width="3"/>
+  <line x1="180" y1="328" x2="220" y2="328" stroke="url(#weldGlow)" stroke-width="4"/>
+  <!-- Exit Flange -->
+  <ellipse cx="200" cy="355" rx="35" ry="12" fill="url(#inoxGrad)" stroke="#0F172A" stroke-width="3"/>
+  <circle cx="200" cy="355" r="15" fill="#0A0B0E"/>
+  <circle cx="172" cy="355" r="5" fill="#E2E8F0"/>
+  <circle cx="228" cy="355" r="5" fill="#E2E8F0"/>
+</svg>

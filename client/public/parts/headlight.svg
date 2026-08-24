@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <radialGradient id="bgDark9" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#181A20"/>
+      <stop offset="100%" stop-color="#0A0B0E"/>
+    </radialGradient>
+    <radialGradient id="glassLens" cx="45%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="40%" stop-color="#E0F2FE"/>
+      <stop offset="75%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#0369A1"/>
+    </radialGradient>
+  </defs>
+  <rect width="400" height="400" fill="url(#bgDark9)"/>
+  <!-- Chrome Headlamp Retaining Ring -->
+  <circle cx="200" cy="200" r="160" fill="#CBD5E1" stroke="#0F172A" stroke-width="6"/>
+  <!-- Convex Fluted Glass Lens -->
+  <circle cx="200" cy="200" r="145" fill="url(#glassLens)" stroke="#1E293B" stroke-width="4" opacity="0.9"/>
+  <!-- Vintage Vertical Fluted Optical Prisms -->
+  <g stroke="#FFFFFF" stroke-width="1.8" opacity="0.65">
+    <line x1="120" y1="120" x2="120" y2="280"/><line x1="140" y1="95" x2="140" y2="305"/>
+    <line x1="160" y1="80" x2="160" y2="320"/><line x1="180" y1="70" x2="180" y2="330"/>
+    <line x1="200" y1="65" x2="200" y2="335"/><line x1="220" y1="70" x2="220" y2="330"/>
+    <line x1="240" y1="80" x2="240" y2="320"/><line x1="260" y1="95" x2="260" y2="305"/>
+    <line x1="280" y1="120" x2="280" y2="280"/>
+  </g>
+  <!-- Center Bulb Reflector Shield -->
+  <circle cx="200" cy="200" r="28" fill="#F8FAFC" stroke="#0284C7" stroke-width="2.5"/>
+  <circle cx="200" cy="200" r="12" fill="#FBBF24" opacity="0.8"/>
+</svg>

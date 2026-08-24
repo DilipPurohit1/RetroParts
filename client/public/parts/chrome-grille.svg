@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <radialGradient id="bgDark7" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#181A20"/>
+      <stop offset="100%" stop-color="#0A0B0E"/>
+    </radialGradient>
+    <linearGradient id="chromeBevel" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="25%" stop-color="#CBD5E1"/>
+      <stop offset="70%" stop-color="#64748B"/>
+      <stop offset="100%" stop-color="#E2E8F0"/>
+    </linearGradient>
+    <pattern id="honeycomb" width="20" height="34.64" patternUnits="userSpaceOnUse">
+      <path d="M 10 0 L 20 5.77 L 20 17.32 L 10 23.09 L 0 17.32 L 0 5.77 Z M 10 34.64 L 20 28.87 L 20 17.32 L 10 23.09 L 0 17.32 L 0 28.87 Z" fill="#0A0B0E" stroke="#475569" stroke-width="1.2"/>
+    </pattern>
+  </defs>
+  <rect width="400" height="400" fill="url(#bgDark7)"/>
+  <!-- Chrome Grille Outer Frame -->
+  <g transform="translate(20, 100)">
+    <rect x="0" y="0" width="360" height="200" rx="12" fill="url(#chromeBevel)" stroke="#0F172A" stroke-width="4"/>
+    <!-- Inner Recessed Mesh Area -->
+    <rect x="16" y="16" width="328" height="168" rx="8" fill="url(#honeycomb)" stroke="#0F172A" stroke-width="3"/>
+    <!-- Horizontal Chrome Center Accent Louver -->
+    <line x1="16" y1="100" x2="344" y2="100" stroke="url(#chromeBevel)" stroke-width="6"/>
+    <!-- Central Vintage Maruti 'M' Shield Emblem Badge -->
+    <g transform="translate(180, 100)">
+      <polygon points="0,-42 36,-18 28,36 0,48 -28,36 -36,-18" fill="#E10600" stroke="url(#chromeBevel)" stroke-width="4"/>
+      <!-- Vintage Winged 'M' Mark -->
+      <path d="M -20 -15 L -10 18 L 0 -5 L 10 18 L 20 -15" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+</svg>

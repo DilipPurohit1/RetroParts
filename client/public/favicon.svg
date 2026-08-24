@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -32 200 195" fill="none">
+  <defs>
+    <style>
+      @keyframes logoPistonStroke {
+        0%, 100% { transform: translateY(0px); }
+        25% { transform: translateY(12px); }
+        50% { transform: translateY(22px); }
+        75% { transform: translateY(8px); }
+      }
+      @keyframes logoConRod {
+        0%, 100% { transform: rotate(0deg); }
+        25% { transform: rotate(-5.5deg); }
+        50% { transform: rotate(0deg); }
+        75% { transform: rotate(5.5deg); }
+      }
+      @keyframes logoFlameBurst {
+        0%, 100% { opacity: 1; transform: scale(1.1) translateY(-2px); }
+        25% { opacity: 0.15; transform: scale(0.6) translateY(6px); }
+        50% { opacity: 0; transform: scale(0.3) translateY(12px); }
+        75% { opacity: 0.4; transform: scale(0.8) translateY(2px); }
+      }
+      .anim-piston {
+        animation: logoPistonStroke 0.9s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+        transform-origin: 100px 75px;
+      }
+      .anim-conrod {
+        animation: logoConRod 0.9s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+        transform-origin: 100px 136px;
+      }
+      .anim-fire {
+        animation: logoFlameBurst 0.9s ease-out infinite;
+        transform-origin: 100px 8px;
+      }
+    </style>
+
+    <linearGradient id="pistonCrown" x1="60" y1="10" x2="140" y2="70" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="25%" stop-color="#F1F5F9" />
+      <stop offset="55%" stop-color="#94A3B8" />
+      <stop offset="80%" stop-color="#CBD5E1" />
+      <stop offset="100%" stop-color="#475569" />
+    </linearGradient>
+
+    <linearGradient id="conRodGrad" x1="90" y1="65" x2="110" y2="145" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#CBD5E1" />
+      <stop offset="30%" stop-color="#F8FAFC" />
+      <stop offset="60%" stop-color="#64748B" />
+      <stop offset="85%" stop-color="#E2E8F0" />
+      <stop offset="100%" stop-color="#334155" />
+    </linearGradient>
+
+    <linearGradient id="redWingLeft" x1="10" y1="50" x2="80" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FF4D4D" />
+      <stop offset="60%" stop-color="#E10600" />
+      <stop offset="100%" stop-color="#8A0000" />
+    </linearGradient>
+
+    <linearGradient id="redWingRight" x1="190" y1="50" x2="120" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FF4D4D" />
+      <stop offset="60%" stop-color="#E10600" />
+      <stop offset="100%" stop-color="#8A0000" />
+    </linearGradient>
+
+    <linearGradient id="flameOuter" x1="100" y1="-18" x2="100" y2="24" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFE600" />
+      <stop offset="35%" stop-color="#FF5500" />
+      <stop offset="75%" stop-color="#E10600" />
+      <stop offset="100%" stop-color="rgba(225,6,0,0)" />
+    </linearGradient>
+
+    <linearGradient id="flameCore" x1="100" y1="-6" x2="100" y2="22" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="40%" stop-color="#FFF275" />
+      <stop offset="85%" stop-color="#FF3B30" />
+      <stop offset="100%" stop-color="rgba(255,59,48,0)" />
+    </linearGradient>
+
+    <radialGradient id="flameAura" cx="100" cy="8" r="32" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="rgba(255,210,0,0.85)" />
+      <stop offset="50%" stop-color="rgba(225,6,0,0.45)" />
+      <stop offset="100%" stop-color="rgba(225,6,0,0)" />
+    </radialGradient>
+  </defs>
+
+  <!-- STATIC LEFT SPEED WINGS -->
+  <g>
+    <path d="M 12 56 L 76 60 L 73 73 L 26 71 Z" fill="url(#redWingLeft)" />
+    <path d="M 22 76 L 73 78 L 70 91 L 36 89 Z" fill="url(#redWingLeft)" />
+    <path d="M 33 94 L 71 95 L 68 107 L 46 105 Z" fill="url(#redWingLeft)" />
+  </g>
+
+  <!-- STATIC RIGHT SPEED WINGS -->
+  <g>
+    <path d="M 188 56 L 124 60 L 127 73 L 174 71 Z" fill="url(#redWingRight)" />
+    <path d="M 178 76 L 127 78 L 130 91 L 164 89 Z" fill="url(#redWingRight)" />
+    <path d="M 167 94 L 129 95 L 132 107 L 154 105 Z" fill="url(#redWingRight)" />
+  </g>
+
+  <!-- ANIMATED CONNECTING ROD -->
+  <g class="anim-conrod">
+    <path
+      d="M 94 66 L 94 114 C 88 118 84 126 84 136 C 84 150 96 158 100 158 C 104 158 116 150 116 136 C 116 126 112 118 106 114 L 106 66 Z"
+      fill="url(#conRodGrad)"
+      stroke="#0F172A"
+      stroke-width="1.5"
+    />
+    <path d="M 97 72 L 97 110 L 103 110 L 103 72 Z" fill="#0F172A" stroke="#475569" stroke-width="1" />
+    <circle cx="100" cy="136" r="10" fill="#0A0A0A" stroke="#CBD5E1" stroke-width="2" />
+    <circle cx="89" cy="126" r="2" fill="#F1F5F9" stroke="#0F172A" stroke-width="1" />
+    <circle cx="111" cy="126" r="2" fill="#F1F5F9" stroke="#0F172A" stroke-width="1" />
+  </g>
+
+  <!-- ANIMATED PISTON & FIRE -->
+  <g class="anim-piston">
+    <g class="anim-fire">
+      <circle cx="100" cy="8" r="28" fill="url(#flameAura)" />
+      <path
+        d="M 76 22 C 76 10 82 -6 92 4 C 96 -14 104 -16 108 2 C 114 -8 124 6 124 22 Z"
+        fill="url(#flameOuter)"
+      />
+      <path
+        d="M 84 22 C 84 12 90 2 96 6 C 100 -4 104 -2 108 8 C 112 4 116 12 116 22 Z"
+        fill="url(#flameCore)"
+      />
+      <circle cx="94" cy="-8" r="2" fill="#FFE600" />
+      <circle cx="107" cy="-12" r="1.8" fill="#FFFFFF" />
+      <circle cx="100" cy="-18" r="2.2" fill="#FF5500" />
+    </g>
+
+    <path
+      d="M 68 22 C 68 15 132 15 132 22 L 132 68 C 132 72 128 75 124 75 L 115 75 C 114 62 86 62 85 75 L 76 75 C 72 75 68 72 68 68 Z"
+      fill="url(#pistonCrown)"
+      stroke="#0F172A"
+      stroke-width="1.5"
+    />
+    <line x1="70" y1="28" x2="130" y2="28" stroke="#0F172A" stroke-width="2" />
+    <line x1="70" y1="36" x2="130" y2="36" stroke="#0F172A" stroke-width="2" />
+    <line x1="70" y1="44" x2="130" y2="44" stroke="#0F172A" stroke-width="1.8" />
+    <path d="M 72 20 C 72 17 128 17 128 20 L 128 24 C 128 21 72 21 72 24 Z" fill="#FFFFFF" opacity="0.9" />
+    <circle cx="100" cy="54" r="10" fill="#0F172A" stroke="#CBD5E1" stroke-width="2" />
+    <circle cx="100" cy="54" r="6" fill="#1E293B" />
+    <circle cx="98" cy="52" r="2.5" fill="#FFFFFF" opacity="0.8" />
+  </g>
+</svg>

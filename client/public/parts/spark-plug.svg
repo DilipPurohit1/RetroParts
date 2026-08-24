@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <radialGradient id="bgDark" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#181A20"/>
+      <stop offset="100%" stop-color="#0A0B0E"/>
+    </radialGradient>
+    <linearGradient id="metalChrome" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#64748B"/>
+      <stop offset="30%" stop-color="#F1F5F9"/>
+      <stop offset="70%" stop-color="#94A3B8"/>
+      <stop offset="100%" stop-color="#334155"/>
+    </linearGradient>
+    <linearGradient id="ceramicWhite" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#E2E8F0"/>
+      <stop offset="40%" stop-color="#FFFFFF"/>
+      <stop offset="80%" stop-color="#CBD5E1"/>
+      <stop offset="100%" stop-color="#94A3B8"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" fill="url(#bgDark)"/>
+  <g transform="translate(200, 200) rotate(-35) translate(-200, -200)">
+    <!-- Terminal Stud -->
+    <rect x="188" y="40" width="24" height="25" rx="4" fill="url(#metalChrome)" stroke="#0F172A" stroke-width="2"/>
+    <circle cx="200" cy="38" r="8" fill="#E2E8F0" stroke="#334155" stroke-width="2"/>
+    <!-- White Ribbed Ceramic Insulator -->
+    <rect x="175" y="65" width="50" height="110" rx="6" fill="url(#ceramicWhite)" stroke="#64748B" stroke-width="2"/>
+    <!-- Ceramic Ribs -->
+    <rect x="168" y="80" width="64" height="10" rx="3" fill="url(#ceramicWhite)" stroke="#94A3B8" stroke-width="1.5"/>
+    <rect x="168" y="100" width="64" height="10" rx="3" fill="url(#ceramicWhite)" stroke="#94A3B8" stroke-width="1.5"/>
+    <rect x="168" y="120" width="64" height="10" rx="3" fill="url(#ceramicWhite)" stroke="#94A3B8" stroke-width="1.5"/>
+    <!-- NGK Racing Red Branding Band -->
+    <rect x="175" y="145" width="50" height="8" fill="#E10600"/>
+    <text x="200" y="152" font-family="monospace" font-size="6" font-weight="900" fill="#FFFFFF" text-anchor="middle">NGK IRIDIUM</text>
+    <!-- Metal Hex Nut Shell -->
+    <path d="M 160 175 L 240 175 L 245 225 L 155 225 Z" fill="url(#metalChrome)" stroke="#0F172A" stroke-width="2"/>
+    <line x1="187" y1="175" x2="187" y2="225" stroke="#334155" stroke-width="2"/>
+    <line x1="213" y1="175" x2="213" y2="225" stroke="#334155" stroke-width="2"/>
+    <!-- Metal Gasket Washer -->
+    <rect x="165" y="225" width="70" height="8" rx="2" fill="#E2E8F0" stroke="#0F172A" stroke-width="2"/>
+    <!-- Threaded Body -->
+    <rect x="172" y="233" width="56" height="85" fill="#475569" stroke="#0F172A" stroke-width="2"/>
+    <!-- Thread Ridges -->
+    <line x1="170" y1="245" x2="230" y2="245" stroke="#94A3B8" stroke-width="4"/>
+    <line x1="170" y1="260" x2="230" y2="260" stroke="#94A3B8" stroke-width="4"/>
+    <line x1="170" y1="275" x2="230" y2="275" stroke="#94A3B8" stroke-width="4"/>
+    <line x1="170" y1="290" x2="230" y2="290" stroke="#94A3B8" stroke-width="4"/>
+    <line x1="170" y1="305" x2="230" y2="305" stroke="#94A3B8" stroke-width="4"/>
+    <!-- Insulator Nose & Fine Wire Iridium Electrode -->
+    <polygon points="185,318 215,318 208,335 192,335" fill="#F8FAFC" stroke="#64748B" stroke-width="1.5"/>
+    <rect x="198" y="335" width="4" height="16" fill="#00E5FF" stroke="#0F172A" stroke-width="1"/>
+    <!-- Ground Electrode Arm (L-shape with spark gap) -->
+    <path d="M 176 318 L 176 360 L 206 360" fill="none" stroke="url(#metalChrome)" stroke-width="6" stroke-linecap="square"/>
+    <!-- Laser Spark Glow -->
+    <circle cx="202" cy="354" r="5" fill="#00E5FF" opacity="0.8"/>
+  </g>
+</svg>

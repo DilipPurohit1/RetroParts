@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <radialGradient id="bgDark4" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#181A20"/>
+      <stop offset="100%" stop-color="#0A0B0E"/>
+    </radialGradient>
+    <linearGradient id="finMetal" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#334155"/>
+      <stop offset="50%" stop-color="#CBD5E1"/>
+      <stop offset="100%" stop-color="#1E293B"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" fill="url(#bgDark4)"/>
+  <!-- Cylinder Head Block with Radial Cooling Fins -->
+  <g transform="translate(200, 150)">
+    <!-- Outer Cooling Fins (Step down layers) -->
+    <rect x="-140" y="-80" width="280" height="12" rx="4" fill="url(#finMetal)" stroke="#0F172A" stroke-width="2"/>
+    <rect x="-150" y="-60" width="300" height="12" rx="4" fill="url(#finMetal)" stroke="#0F172A" stroke-width="2"/>
+    <rect x="-155" y="-40" width="310" height="12" rx="4" fill="url(#finMetal)" stroke="#0F172A" stroke-width="2"/>
+    <rect x="-150" y="-20" width="300" height="12" rx="4" fill="url(#finMetal)" stroke="#0F172A" stroke-width="2"/>
+    <rect x="-140" y="0" width="280" height="12" rx="4" fill="url(#finMetal)" stroke="#0F172A" stroke-width="2"/>
+    <rect x="-125" y="20" width="250" height="12" rx="4" fill="url(#finMetal)" stroke="#0F172A" stroke-width="2"/>
+    <!-- Center Spark Plug Well Hole -->
+    <circle cx="0" cy="-30" r="22" fill="#0A0B0E" stroke="#E10600" stroke-width="3"/>
+    <circle cx="0" cy="-30" r="14" fill="#334155" stroke="#94A3B8" stroke-width="2"/>
+    <!-- 4 Cylinder Head Stud Holes -->
+    <circle cx="-80" cy="-45" r="9" fill="#0F172A" stroke="#CBD5E1" stroke-width="2.5"/>
+    <circle cx="80" cy="-45" r="9" fill="#0F172A" stroke="#CBD5E1" stroke-width="2.5"/>
+    <circle cx="-80" cy="10" r="9" fill="#0F172A" stroke="#CBD5E1" stroke-width="2.5"/>
+    <circle cx="80" cy="10" r="9" fill="#0F172A" stroke="#CBD5E1" stroke-width="2.5"/>
+  </g>
+  <!-- Cast Aluminum Piston with Compression Rings (Bottom-Center) -->
+  <g transform="translate(200, 290)">
+    <!-- Piston Dome -->
+    <path d="M -60 -40 C -60 -55 60 -55 60 -40 L 60 50 C 60 58 50 64 42 64 L 30 64 C 28 50 -28 50 -30 64 L -42 64 C -50 64 -60 58 -60 50 Z" fill="url(#finMetal)" stroke="#0F172A" stroke-width="3"/>
+    <!-- 2-Stroke Ring Lands -->
+    <line x1="-58" y1="-28" x2="58" y2="-28" stroke="#0F172A" stroke-width="3.5"/>
+    <line x1="-58" y1="-14" x2="58" y2="-14" stroke="#0F172A" stroke-width="3.5"/>
+    <!-- Wrist Pin Boss -->
+    <circle cx="0" cy="15" r="16" fill="#0A0B0E" stroke="#E2E8F0" stroke-width="3"/>
+    <circle cx="0" cy="15" r="10" fill="#1E293B"/>
+    <circle cx="-4" cy="11" r="3" fill="#FFFFFF" opacity="0.8"/>
+  </g>
+</svg>

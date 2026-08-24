@@ -1,0 +1,271 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-base: #0D0D0D;
+  --bg-surface: #161616;
+  --bg-surface-raised: #222222;
+  --bg-surface-crimson: #200A0A;
+  --border-default: #2A2A2A;
+  --border-strong: #383838;
+  --border-red: #551111;
+  --text-primary: #E5E5E5;
+  --text-secondary: #BAC0CD;
+  --text-muted: #888888;
+  --accent: #E10600;
+  --accent-hover: #B20404;
+  --accent-dark: #B20404;
+  --accent-muted-bg: #260808;
+  --success: #10B981;
+  --warning: #F59E0B;
+  --danger: #E10600;
+  --verified: #00B4D8;
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    background-color: var(--bg-base);
+  }
+
+  body {
+    background-color: var(--bg-base);
+    color: var(--text-primary);
+    font-family: 'Inter', 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+  }
+
+  ::selection {
+    background-color: var(--accent);
+    color: #FFFFFF;
+  }
+
+  /* Headings: Bold uppercase impactful sans */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Oswald', 'Bebas Neue', 'Inter', sans-serif;
+    color: var(--text-primary);
+    letter-spacing: 0.02em;
+  }
+
+  /* Red & Black Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--bg-base);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #2A2A2A;
+    border-radius: 2px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #E10600;
+  }
+}
+
+@layer components {
+  /* Red & Black Cards */
+  .rp-card, .neo-card {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: 6px;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .rp-card-hover:hover, .neo-card-hover:hover {
+    background-color: var(--bg-surface-raised);
+    border-color: rgba(225, 6, 0, 0.4);
+    box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.8), 0 0 16px 0 rgba(225, 6, 0, 0.15);
+  }
+
+  /* Form Inputs */
+  .rp-input, .neo-input {
+    width: 100%;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: 4px;
+    padding: 0.55rem 0.85rem;
+    font-size: 13px;
+    font-family: 'Inter', sans-serif;
+    color: var(--text-primary);
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .rp-input:focus, .neo-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px rgba(225, 6, 0, 0.4);
+  }
+
+  /* Button Hierarchy */
+  .rp-btn-primary, .neo-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.55rem 1.15rem;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-family: 'Inter', sans-serif;
+    background-color: #E10600;
+    color: #FFFFFF;
+    border: 1px solid transparent;
+    transition: all 0.15s ease-in-out;
+  }
+
+  .rp-btn-primary:hover, .neo-btn-primary:hover {
+    background-color: #B20404;
+  }
+
+  .rp-btn-secondary, .neo-btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.55rem 1.15rem;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-surface);
+    color: var(--text-primary);
+    border: 1px solid var(--border-default);
+    transition: all 0.15s ease-in-out;
+  }
+
+  .rp-btn-secondary:hover, .neo-btn-secondary:hover {
+    background-color: var(--bg-surface-raised);
+    border-color: var(--border-strong);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.2s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 32s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* === RETROPARTS REALISTIC 4-STROKE PISTON ANIMATIONS === */
+@keyframes logoPistonStroke {
+  0% {
+    /* Top Dead Center (TDC) - Ignition */
+    transform: translateY(0px);
+  }
+  45%, 55% {
+    /* Bottom Dead Center (BDC) - Downward Stroke */
+    transform: translateY(16px);
+  }
+  100% {
+    /* Return to TDC - Compression */
+    transform: translateY(0px);
+  }
+}
+
+@keyframes logoConRod {
+  0% {
+    /* Top Dead Center */
+    transform: rotate(0deg);
+  }
+  25% {
+    /* Downward Power Stroke (Clockwise pivot) */
+    transform: rotate(8deg);
+  }
+  50% {
+    /* Bottom Dead Center */
+    transform: rotate(0deg);
+  }
+  75% {
+    /* Upward Compression Stroke (Counter-clockwise pivot) */
+    transform: rotate(-8deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes logoFlameBurst {
+  0%, 100% {
+    /* Flash of combustion at TDC */
+    opacity: 1;
+    transform: scale(1.3) translateY(-4px);
+    filter: drop-shadow(0 -3px 12px #FF5500);
+  }
+  15% {
+    /* Expanding burn */
+    opacity: 0.85;
+    transform: scale(1.1) translateY(0px);
+    filter: drop-shadow(0 -2px 8px #E10600);
+  }
+  30% {
+    /* Dissipation */
+    opacity: 0.2;
+    transform: scale(0.6) translateY(6px);
+  }
+  45%, 85% {
+    /* Intake & Compression: clean cylinder (no flame) */
+    opacity: 0;
+    transform: scale(0.2) translateY(12px);
+  }
+  95% {
+    /* Pre-ignition spark */
+    opacity: 0.6;
+    transform: scale(0.85) translateY(-1px);
+    filter: drop-shadow(0 -1px 6px #FFE600);
+  }
+}
+
+.animate-logo-piston {
+  animation: logoPistonStroke 0.9s cubic-bezier(0.42, 0, 0.58, 1) infinite;
+}
+
+.group:hover .animate-logo-piston {
+  animation: logoPistonStroke 0.45s cubic-bezier(0.42, 0, 0.58, 1) infinite;
+}
+
+.animate-logo-conrod {
+  transform-origin: 100px 136px;
+  animation: logoConRod 0.9s ease-in-out infinite;
+}
+
+.group:hover .animate-logo-conrod {
+  animation: logoConRod 0.45s ease-in-out infinite;
+}
+
+.animate-logo-fire {
+  transform-origin: 100px 20px;
+  animation: logoFlameBurst 0.9s ease-in-out infinite;
+}
+
+.group:hover .animate-logo-fire {
+  animation: logoFlameBurst 0.45s ease-in-out infinite;
+}

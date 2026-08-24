@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <radialGradient id="bgDark3" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#181A20"/>
+      <stop offset="100%" stop-color="#0A0B0E"/>
+    </radialGradient>
+    <radialGradient id="rotorMetal" cx="50%" cy="50%" r="50%">
+      <stop offset="35%" stop-color="#0F172A"/>
+      <stop offset="55%" stop-color="#475569"/>
+      <stop offset="85%" stop-color="#E2E8F0"/>
+      <stop offset="100%" stop-color="#64748B"/>
+    </radialGradient>
+    <linearGradient id="caliperRed" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF3B30"/>
+      <stop offset="50%" stop-color="#E10600"/>
+      <stop offset="100%" stop-color="#880000"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" fill="url(#bgDark3)"/>
+  <!-- Outer Cast-Iron Brake Rotor -->
+  <circle cx="200" cy="200" r="160" fill="url(#rotorMetal)" stroke="#1E293B" stroke-width="5"/>
+  <!-- Precision Ground Friction Surface Grooves -->
+  <circle cx="200" cy="200" r="140" fill="none" stroke="#94A3B8" stroke-width="2" stroke-dasharray="8 4" opacity="0.6"/>
+  <circle cx="200" cy="200" r="120" fill="none" stroke="#CBD5E1" stroke-width="2" stroke-dasharray="12 6" opacity="0.5"/>
+  <circle cx="200" cy="200" r="100" fill="#1E293B" stroke="#0F172A" stroke-width="4"/>
+  <!-- Center Hat & Hub Mounting -->
+  <circle cx="200" cy="200" r="65" fill="#0F172A" stroke="#475569" stroke-width="3"/>
+  <circle cx="200" cy="200" r="30" fill="#020617"/>
+  <!-- 5 Wheel Lug Stud Holes -->
+  <circle cx="200" cy="155" r="9" fill="#E2E8F0" stroke="#0F172A" stroke-width="2"/>
+  <circle cx="242" cy="186" r="9" fill="#E2E8F0" stroke="#0F172A" stroke-width="2"/>
+  <circle cx="226" cy="235" r="9" fill="#E2E8F0" stroke="#0F172A" stroke-width="2"/>
+  <circle cx="174" cy="235" r="9" fill="#E2E8F0" stroke="#0F172A" stroke-width="2"/>
+  <circle cx="158" cy="186" r="9" fill="#E2E8F0" stroke="#0F172A" stroke-width="2"/>
+  <!-- Cross-Drilled Ventilation Holes (Radial Spiral Pattern) -->
+  <g fill="#0A0B0E">
+    <circle cx="200" cy="70" r="4"/><circle cx="200" cy="85" r="4"/>
+    <circle cx="270" cy="100" r="4"/><circle cx="260" cy="115" r="4"/>
+    <circle cx="315" cy="165" r="4"/><circle cx="300" cy="175" r="4"/>
+    <circle cx="300" cy="250" r="4"/><circle cx="285" cy="240" r="4"/>
+    <circle cx="240" cy="310" r="4"/><circle cx="230" cy="295" r="4"/>
+    <circle cx="160" cy="310" r="4"/><circle cx="170" cy="295" r="4"/>
+    <circle cx="100" cy="250" r="4"/><circle cx="115" cy="240" r="4"/>
+    <circle cx="85" cy="165" r="4"/><circle cx="100" cy="175" r="4"/>
+    <circle cx="130" cy="100" r="4"/><circle cx="140" cy="115" r="4"/>
+  </g>
+  <!-- Red High-Performance Multi-Piston Caliper (Top-Right) -->
+  <path d="M 245 40 C 340 75 365 180 325 250 L 285 220 C 315 170 300 95 230 70 Z" fill="url(#caliperRed)" stroke="#5B0500" stroke-width="4"/>
+  <!-- Caliper Pistons -->
+  <circle cx="280" cy="105" r="12" fill="#E2E8F0" stroke="#1E293B" stroke-width="3"/>
+  <circle cx="305" cy="155" r="12" fill="#E2E8F0" stroke="#1E293B" stroke-width="3"/>
+  <circle cx="295" cy="205" r="12" fill="#E2E8F0" stroke="#1E293B" stroke-width="3"/>
+  <!-- Caliper Brand Text -->
+  <text x="270" y="140" font-family="sans-serif" font-size="12" font-weight="900" fill="#FFFFFF" transform="rotate(45, 270, 140)">BREMBO</text>
+</svg>

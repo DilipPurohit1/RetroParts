@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <radialGradient id="bgDark10" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#181A20"/>
+      <stop offset="100%" stop-color="#0A0B0E"/>
+    </radialGradient>
+    <linearGradient id="strutMetal" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1E293B"/>
+      <stop offset="50%" stop-color="#94A3B8"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" fill="url(#bgDark10)"/>
+  <g transform="translate(200, 200) rotate(-25) translate(-200, -200)">
+    <!-- Top Pillowball Pillow Mount -->
+    <rect x="140" y="30" width="120" height="24" rx="4" fill="#E10600" stroke="#0F172A" stroke-width="3"/>
+    <circle cx="200" cy="42" r="8" fill="#F8FAFC" stroke="#0F172A" stroke-width="2"/>
+    <!-- Top Spring Perch -->
+    <polygon points="160,54 240,54 230,75 170,75" fill="#1E293B" stroke="#0F172A" stroke-width="2"/>
+    <!-- Chrome Damper Piston Shaft -->
+    <rect x="188" y="75" width="24" height="240" fill="#F1F5F9" stroke="#0F172A" stroke-width="2"/>
+    <!-- Coiled Racing Red Suspension Spring -->
+    <g fill="none" stroke="#E10600" stroke-width="22" stroke-linecap="round">
+      <path d="M 155 85 Q 200 65 245 85"/>
+      <path d="M 155 125 Q 200 105 245 125"/>
+      <path d="M 155 165 Q 200 145 245 165"/>
+      <path d="M 155 205 Q 200 185 245 205"/>
+      <path d="M 155 245 Q 200 225 245 245"/>
+    </g>
+    <!-- Threaded Aluminum Shock Body (Bottom) -->
+    <rect x="175" y="240" width="50" height="95" fill="url(#strutMetal)" stroke="#0F172A" stroke-width="3"/>
+    <!-- Height Adjustment Locking Collars -->
+    <rect x="160" y="245" width="80" height="12" rx="2" fill="#F59E0B" stroke="#0F172A" stroke-width="2"/>
+    <rect x="160" y="260" width="80" height="12" rx="2" fill="#F59E0B" stroke="#0F172A" stroke-width="2"/>
+    <!-- Lower Eyelet Bushing Mount -->
+    <circle cx="200" cy="355" r="20" fill="#E10600" stroke="#0F172A" stroke-width="3"/>
+    <circle cx="200" cy="355" r="10" fill="#0A0B0E" stroke="#CBD5E1" stroke-width="2"/>
+  </g>
+</svg>
