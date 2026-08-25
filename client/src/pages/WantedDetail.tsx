@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import {
-  ShieldCheck,
+  HelpCircle,
   MapPin,
   Send,
   AlertTriangle,
+  CheckCircle,
+  Clock,
+  ShieldCheck,
 } from 'lucide-react';
 import { wantedService } from '../services/wantedService.js';
 import { IWantedPart } from '../types/index.js';
@@ -14,10 +17,8 @@ import { useToast } from '../context/ToastContext.js';
 
 export const WantedDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const [bounty, setBounty] = useState<IWantedPart | null>(null);
+  const [request, setRequest] = useState<IWantedPart | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-
-  // Seller Offer Form State
   const [offerPrice, setOfferPrice] = useState<string>('');
   const [offerMessage, setOfferMessage] = useState<string>('');
   const [contactNumber, setContactNumber] = useState<string>('');
@@ -28,43 +29,44 @@ export const WantedDetail: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchBounty = async () => {
+    const fetchRequest = async () => {
       if (!id) return;
       try {
         setLoading(true);
         const data = await wantedService.getWantedPartById(id);
-        setBounty(data);
+        setRequest(data);
       } catch (err: any) {
-        error(err.response?.data?.message || 'Failed to load wanted part request.', 'Error');
+        error(err.response?.data?.message || 'Failed to load sourcing request.', 'Error');
       } finally {
         setLoading(false);
       }
     };
-    fetchBounty();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    fetchRequest();
   }, [id]);
 
   const handleSubmitOffer = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!isAuthenticated) {
-      info('Please sign in to submit a quote.', 'Authentication required');
+      info('Please sign in to submit a quote for this part request.', 'Sign In Required');
       navigate('/login');
       return;
     }
+
     if (!offerPrice || !offerMessage) {
-      error('Please specify an offer price and condition message.', 'Validation error');
+      error('Please provide a quote price and condition message.', 'Validation Error');
       return;
     }
 
     try {
       setSubmittingOffer(true);
-      const updatedBounty = await wantedService.submitOffer(id!, {
+      const updatedRequest = await wantedService.submitOffer(id!, {
         offerPrice: parseFloat(offerPrice),
         message: offerMessage,
         contactNumber,
       });
-      success('Your quote has been delivered to the enthusiast!', 'Offer submitted');
-      setBounty(updatedBounty);
+
+      success('Your quote has been sent to the requester!', 'Quote Delivered');
+      setRequest(updatedRequest);
       setOfferPrice('');
       setOfferMessage('');
       setContactNumber('');
@@ -79,29 +81,27 @@ export const WantedDetail: React.FC = () => {
     return (
       <div className="max-w-[1680px] mx-auto px-4 py-28 flex flex-col items-center justify-center min-h-[60vh] text-white bg-[#0D0D0D]">
         <div className="w-10 h-10 border-2 border-[#E10600] border-t-transparent rounded-full animate-spin mb-4" />
-        <p className="text-xs text-[#888888]">Loading bounty specifications...</p>
+        <p className="text-xs text-[#888888]">Loading sourcing specifications...</p>
       </div>
     );
   }
 
-  if (!bounty) {
+  if (!request) {
     return (
       <div className="max-w-md mx-auto px-4 py-28 text-center space-y-4 text-white bg-[#0D0D0D]">
         <div className="w-12 h-12 rounded bg-[#161616] text-[#E10600] border border-[#2A2A2A] flex items-center justify-center mx-auto">
           <AlertTriangle className="w-6 h-6" />
         </div>
-        <h2 className="text-xl font-display font-bold uppercase">Bounty Request Not Found</h2>
-        <p className="text-xs text-[#888888]">The requested part bounty may have been fulfilled or closed.</p>
+        <h2 className="text-xl font-display font-bold uppercase">Sourcing Request Not Found</h2>
+        <p className="text-xs text-[#888888]">The requested part inquiry may have been fulfilled or closed.</p>
         <Link to="/wanted">
           <button className="bg-[#E10600] hover:bg-[#B20404] text-white px-5 py-2 text-xs font-bold uppercase rounded">
-            Return to Bounty Board
+            Return to Sourcing Board
           </button>
         </Link>
       </div>
     );
   }
-
-  const requester = typeof bounty.user === 'object' ? bounty.user : null;
 
   return (
     <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 space-y-8 min-h-screen text-[#E5E5E5] bg-transparent text-left">
@@ -109,25 +109,25 @@ export const WantedDetail: React.FC = () => {
       <nav className="flex items-center gap-1.5 text-xs text-[#888888]">
         <Link to="/" className="hover:text-white transition-colors">Home</Link>
         <span>/</span>
-        <Link to="/wanted" className="hover:text-white transition-colors">Wanted Bounties</Link>
+        <Link to="/wanted" className="hover:text-white transition-colors">Sourcing Requests</Link>
         <span>/</span>
-        <span className="text-[#E10600] font-medium truncate max-w-xs">{bounty.title}</span>
+        <span className="text-[#E10600] font-medium truncate max-w-xs">{request.title}</span>
       </nav>
 
       {/* Main Grid: Details + Quote Submission */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        {/* Left Column: Bounty Details & Description */}
+        {/* Left Column: Sourcing Details & Description */}
         <div className="lg:col-span-8 space-y-6">
           <div className="p-6 sm:p-8 rounded bg-[#161616] border border-[#2A2A2A] space-y-5">
             <div className="space-y-2">
               <div className="flex flex-wrap items-center gap-2">
                 <span className="text-[11px] font-mono font-bold px-2.5 py-0.5 rounded bg-[#222222] text-white border border-[#2A2A2A] uppercase">
-                  {bounty.vehicleBrand} {bounty.vehicleModel} ({bounty.vehicleYear})
+                  {request.vehicleBrand} {request.vehicleModel} ({request.vehicleYear})
                 </span>
                 <span className="text-xs text-[#888888]">
-                  • {bounty.category}
+                  • {request.category}
                 </span>
-                {bounty.urgency === 'urgent' && (
+                {request.urgency === 'urgent' && (
                   <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-[#E10600]/15 text-[#E10600] border border-[#E10600]/30 font-mono">
                     Urgent Request
                   </span>
@@ -135,15 +135,15 @@ export const WantedDetail: React.FC = () => {
               </div>
 
               <h1 className="text-2xl sm:text-3xl font-display font-black uppercase text-white leading-tight">
-                {bounty.title}
+                {request.title}
               </h1>
 
               <div className="flex items-center gap-4 text-xs text-[#888888] pt-1">
-                <span>Posted on {formatDate(bounty.createdAt)}</span>
-                {bounty.location?.city && (
+                <span>Posted on {formatDate(request.createdAt)}</span>
+                {request.location?.city && (
                   <span className="flex items-center gap-1">
                     <MapPin className="w-3.5 h-3.5 text-[#888888]" />
-                    {bounty.location.city}, {bounty.location.state}
+                    {request.location.city}, {request.location.state}
                   </span>
                 )}
               </div>
@@ -154,31 +154,31 @@ export const WantedDetail: React.FC = () => {
               <div>
                 <span className="text-[10px] font-mono uppercase text-[#888888] block">Target Budget</span>
                 <span className="text-xl sm:text-2xl font-mono font-bold text-[#E10600]">
-                  {formatPrice(bounty.targetBudget)}
+                  {formatPrice(request.targetBudget)}
                 </span>
               </div>
               <div className="text-right">
                 <span className="text-[10px] font-mono uppercase text-[#888888] block">Required Condition</span>
-                <span className="text-xs font-bold text-white uppercase">{bounty.conditionRequired}</span>
+                <span className="text-xs font-bold text-white uppercase">{request.conditionRequired}</span>
               </div>
             </div>
 
             {/* Description */}
             <div className="space-y-2 text-xs sm:text-sm text-[#BAC0CD] leading-relaxed font-sans border-t border-[#2A2A2A] pt-4">
-              <h3 className="font-bold text-white uppercase text-xs font-display">Bounty Description & Specifications</h3>
-              <p className="whitespace-pre-line">{bounty.description}</p>
+              <h3 className="font-bold text-white uppercase text-xs font-display">Sourcing Specifications & Requirements</h3>
+              <p className="whitespace-pre-line">{request.description}</p>
             </div>
           </div>
 
           {/* Received Seller Offers List */}
           <div className="p-6 sm:p-8 rounded bg-[#161616] border border-[#2A2A2A] space-y-4">
             <h3 className="text-base font-display font-bold uppercase text-white tracking-wider border-b border-[#2A2A2A] pb-3">
-              Received Seller Quotes ({bounty.offers?.length || 0})
+              Received Quotes ({request.offers?.length || 0})
             </h3>
 
-            {bounty.offers && bounty.offers.length > 0 ? (
+            {request.offers && request.offers.length > 0 ? (
               <div className="space-y-3">
-                {bounty.offers.map((offer: any, idx: number) => (
+                {request.offers.map((offer: any, idx: number) => (
                   <div
                     key={idx}
                     className="p-4 rounded bg-[#222222] border border-[#2A2A2A] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs"
@@ -202,7 +202,7 @@ export const WantedDetail: React.FC = () => {
               </div>
             ) : (
               <p className="text-xs text-[#888888] py-4 text-center">
-                No quotes received yet. Verified stockists have been notified of this bounty.
+                No quotes received yet. Verified stockists have been notified of this sourcing request.
               </p>
             )}
           </div>

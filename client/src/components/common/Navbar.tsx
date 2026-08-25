@@ -282,7 +282,7 @@ export const Navbar: React.FC = () => {
               )}
             </div>
 
-            {/* RARE PART REQUESTS / BOUNTIES */}
+            {/* SOURCING REQUESTS */}
             <NavLink
               to="/wanted"
               className={({ isActive }) =>
@@ -293,7 +293,7 @@ export const Navbar: React.FC = () => {
                 }`
               }
             >
-              WANTED PARTS
+              SOURCING REQUESTS
             </NavLink>
 
             {/* GARAGE */}
@@ -378,7 +378,7 @@ export const Navbar: React.FC = () => {
             Shop All Spares
           </Link>
           <Link to="/wanted" onClick={() => setMobileMenuOpen(false)} className="block py-2 text-[#E5E5E5] hover:text-[#E10600]">
-            Rare Part Requests
+            Rare Part Sourcing
           </Link>
           <Link to="/garage" onClick={() => setMobileMenuOpen(false)} className="block py-2 text-[#E5E5E5] hover:text-[#E10600]">
             My Vehicles

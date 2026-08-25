@@ -19,7 +19,7 @@ import { Modal } from '../components/common/Modal.js';
 
 export const WantedParts: React.FC = () => {
   const [searchParams] = useSearchParams();
-  const [bounties, setBounties] = useState<IWantedPart[]>([]);
+  const [requests, setRequests] = useState<IWantedPart[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [selectedBrand, setSelectedBrand] = useState<string>('');
@@ -28,7 +28,7 @@ export const WantedParts: React.FC = () => {
   const [brands, setBrands] = useState<string[]>([]);
   const [models, setModels] = useState<IVehicle[]>([]);
 
-  // Post Bounty Modal State
+  // Post Sourcing Request Modal State
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [title, setTitle] = useState<string>(searchParams.get('title') || '');
   const [reqBrand, setReqBrand] = useState<string>(searchParams.get('brand') || '');
@@ -63,7 +63,7 @@ export const WantedParts: React.FC = () => {
     const loadData = async () => {
       try {
         setLoading(true);
-        const [bountyData, brandData] = await Promise.all([
+        const [requestData, brandData] = await Promise.all([
           wantedService.getWantedParts({
             search: searchTerm || undefined,
             brand: selectedBrand || undefined,
@@ -71,10 +71,10 @@ export const WantedParts: React.FC = () => {
           }),
           vehicleService.getBrands(),
         ]);
-        setBounties(bountyData.data || []);
+        setRequests(requestData.data || []);
         setBrands(brandData || []);
       } catch (err) {
-        console.warn('Failed to load wanted parts', err);
+        console.warn('Failed to load sourcing requests', err);
       } finally {
         setLoading(false);
       }
@@ -100,14 +100,14 @@ export const WantedParts: React.FC = () => {
 
   const handleOpenModal = () => {
     if (!isAuthenticated) {
-      info('Please sign in to post a rare part request bounty.', 'Authentication required');
+      info('Please sign in to submit a rare part sourcing request.', 'Authentication required');
       navigate('/login');
       return;
     }
     setModalOpen(true);
   };
 
-  const handleCreateBounty = async (e: React.FormEvent) => {
+  const handleCreateRequest = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!title || !reqBrand || !reqModel || !reqBudget || !reqDesc) {
       error('Please fill in all required fields.', 'Validation error');
@@ -116,7 +116,7 @@ export const WantedParts: React.FC = () => {
 
     try {
       setSubmitting(true);
-      const newBounty = await wantedService.createWantedPart({
+      const newRequest = await wantedService.createWantedPart({
         title,
         vehicleBrand: reqBrand,
         vehicleModel: reqModel,
@@ -133,14 +133,14 @@ export const WantedParts: React.FC = () => {
         },
       });
 
-      success('Wanted part bounty posted to community network!', 'Bounty active');
-      setBounties([newBounty, ...bounties]);
+      success('Part sourcing request submitted to community network!', 'Request Active');
+      setRequests([newRequest, ...requests]);
       setModalOpen(false);
       setTitle('');
       setReqDesc('');
       setReqBudget('');
     } catch (err: any) {
-      error(err.response?.data?.message || 'Failed to post bounty.', 'Error');
+      error(err.response?.data?.message || 'Failed to submit request.', 'Error');
     } finally {
       setSubmitting(false);
     }
@@ -155,7 +155,7 @@ export const WantedParts: React.FC = () => {
             COMMUNITY SOURCING BOARD
           </span>
           <h1 className="text-2xl sm:text-3xl font-display font-black uppercase text-white">
-            Rare Parts Request Board
+            Rare Parts Sourcing Board
           </h1>
           <p className="text-xs sm:text-sm text-[#888888] leading-relaxed font-sans">
             Can't find a rare spare in our catalog? Post a request with your target budget and condition requirements. Our verified network of classic stockists and master restorers will send you direct quotes.
@@ -167,7 +167,7 @@ export const WantedParts: React.FC = () => {
           onClick={handleOpenModal}
           className="bg-[#E10600] hover:bg-[#B20404] text-white px-6 py-3 text-xs font-bold uppercase tracking-wider rounded transition-colors flex items-center gap-2 shrink-0 shadow-sm"
         >
-          <PlusCircle className="w-4 h-4" /> POST WANTED REQUEST
+          <PlusCircle className="w-4 h-4" /> SUBMIT SOURCING REQUEST
         </button>
       </div>
 
@@ -177,7 +177,7 @@ export const WantedParts: React.FC = () => {
           <Search className="w-4 h-4 text-[#888888] absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
             type="text"
-            placeholder="Search wanted bounties e.g. Yamaha RX100 5-speed, Lancer calipers..."
+            placeholder="Search sourcing requests e.g. Yamaha RX100 5-speed, Lancer calipers..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full bg-[#222222] border border-[#2A2A2A] rounded pl-10 pr-4 py-2 text-xs text-[#E5E5E5] placeholder-[#888888] outline-none focus:border-[#E10600]"
@@ -209,44 +209,44 @@ export const WantedParts: React.FC = () => {
         </div>
       </div>
 
-      {/* Bounties List */}
+      {/* Sourcing Requests List */}
       {loading ? (
         <div className="space-y-4">
           {Array.from({ length: 3 }).map((_, i) => (
             <div key={i} className="p-6 bg-[#161616] border border-[#2A2A2A] rounded animate-pulse h-32" />
           ))}
         </div>
-      ) : bounties.length > 0 ? (
+      ) : requests.length > 0 ? (
         <div className="space-y-3.5 text-left">
-          {bounties.map((bounty) => (
+          {requests.map((item) => (
             <div
-              key={bounty._id}
+              key={item._id}
               className="p-5 sm:p-6 rounded bg-[#161616] border border-[#2A2A2A] hover:border-[#E10600] transition-colors space-y-4"
             >
               <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
                 <div className="space-y-1.5 max-w-2xl">
                   <div className="flex flex-wrap items-center gap-2">
                     <span className="text-[11px] font-mono font-bold px-2.5 py-0.5 rounded bg-[#222222] text-white border border-[#2A2A2A] uppercase">
-                      {bounty.vehicleBrand} {bounty.vehicleModel} ({bounty.vehicleYear})
+                      {item.vehicleBrand} {item.vehicleModel} ({item.vehicleYear})
                     </span>
                     <span className="text-[11px] text-[#888888] font-sans">
-                      • {bounty.category}
+                      • {item.category}
                     </span>
-                    {bounty.urgency === 'urgent' && (
+                    {item.urgency === 'urgent' && (
                       <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-[#E10600]/15 text-[#E10600] border border-[#E10600]/30 font-mono">
                         Urgent
                       </span>
                     )}
                   </div>
 
-                  <Link to={`/wanted/${bounty._id}`}>
+                  <Link to={`/wanted/${item._id}`}>
                     <h3 className="font-display font-bold text-base sm:text-lg text-white hover:text-[#E10600] transition-colors">
-                      {bounty.title}
+                      {item.title}
                     </h3>
                   </Link>
 
                   <p className="text-xs text-[#888888] leading-relaxed line-clamp-2">
-                    {bounty.description}
+                    {item.description}
                   </p>
                 </div>
 
@@ -255,16 +255,16 @@ export const WantedParts: React.FC = () => {
                   <div>
                     <span className="text-[10px] font-mono uppercase text-[#888888] block text-right">Target Budget</span>
                     <span className="font-mono text-base sm:text-lg font-bold text-[#E10600]">
-                      {formatPrice(bounty.targetBudget)}
+                      {formatPrice(item.targetBudget)}
                     </span>
                   </div>
 
-                  <Link to={`/wanted/${bounty._id}`}>
+                  <Link to={`/wanted/${item._id}`}>
                     <button
                       type="button"
                       className="bg-[#222222] hover:bg-[#E10600] hover:text-white text-[#BAC0CD] px-4 py-1.5 rounded text-[11px] font-bold uppercase border border-[#2A2A2A] transition-colors"
                     >
-                      View & Quote ({bounty.offersCount || 0})
+                      View & Quote ({item.offersCount || 0})
                     </button>
                   </Link>
                 </div>
@@ -273,15 +273,15 @@ export const WantedParts: React.FC = () => {
               {/* Location & Requester Meta */}
               <div className="flex flex-wrap items-center justify-between text-[11px] text-[#888888] pt-2 border-t border-[#2A2A2A]/60">
                 <div className="flex items-center gap-4">
-                  {bounty.location?.city && (
+                  {item.location?.city && (
                     <span className="flex items-center gap-1">
                       <MapPin className="w-3.5 h-3.5 text-[#888888]" />
-                      {bounty.location.city}, {bounty.location.state}
+                      {item.location.city}, {item.location.state}
                     </span>
                   )}
-                  <span>Condition required: <strong className="text-[#E5E5E5]">{bounty.conditionRequired}</strong></span>
+                  <span>Condition required: <strong className="text-[#E5E5E5]">{item.conditionRequired}</strong></span>
                 </div>
-                <span>Posted: {formatDate(bounty.createdAt)}</span>
+                <span>Posted: {formatDate(item.createdAt)}</span>
               </div>
             </div>
           ))}
@@ -289,25 +289,25 @@ export const WantedParts: React.FC = () => {
       ) : (
         <div className="p-12 text-center bg-[#161616] border border-[#2A2A2A] rounded space-y-4">
           <HelpCircle className="w-10 h-10 text-[#E10600] mx-auto" />
-          <h3 className="text-lg font-bold text-white uppercase font-display">No Wanted Bounties Found</h3>
-          <p className="text-xs text-[#888888]">Be the first to post a rare part request to our specialist restorer network.</p>
+          <h3 className="text-lg font-bold text-white uppercase font-display">No Sourcing Requests Found</h3>
+          <p className="text-xs text-[#888888]">Be the first to post a rare part sourcing request to our specialist restorer network.</p>
           <button
             type="button"
             onClick={handleOpenModal}
             className="bg-[#E10600] hover:bg-[#B20404] text-white px-6 py-2.5 text-xs font-bold uppercase rounded"
           >
-            Post Bounty Now
+            Submit Request Now
           </button>
         </div>
       )}
 
-      {/* Post Bounty Modal */}
+      {/* Post Sourcing Request Modal */}
       <Modal
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
-        title="POST RARE PART REQUEST BOUNTY"
+        title="SUBMIT RARE PART SOURCING REQUEST"
       >
-        <form onSubmit={handleCreateBounty} className="space-y-4 text-xs text-left">
+        <form onSubmit={handleCreateRequest} className="space-y-4 text-xs text-left">
           <div>
             <label className="block text-[11px] font-bold text-[#888888] font-mono uppercase mb-1">
               Part Title *
@@ -342,16 +342,49 @@ export const WantedParts: React.FC = () => {
 
             <div>
               <label className="block text-[11px] font-bold text-[#888888] font-mono uppercase mb-1">
-                Model *
+                Vehicle Model *
               </label>
               <input
                 type="text"
                 required
-                placeholder="e.g. 800 (SS80) / RX100"
+                placeholder="e.g. SS80 / Contessa"
                 value={reqModel}
                 onChange={(e) => setReqModel(e.target.value)}
                 className="w-full bg-[#222222] border border-[#2A2A2A] rounded px-3 py-2 text-white outline-none focus:border-[#E10600]"
               />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="block text-[11px] font-bold text-[#888888] font-mono uppercase mb-1">
+                Model Year
+              </label>
+              <input
+                type="number"
+                placeholder="e.g. 1985"
+                value={reqYear}
+                onChange={(e) => setReqYear(e.target.value)}
+                className="w-full bg-[#222222] border border-[#2A2A2A] rounded px-3 py-2 text-white outline-none focus:border-[#E10600]"
+              />
+            </div>
+
+            <div>
+              <label className="block text-[11px] font-bold text-[#888888] font-mono uppercase mb-1">
+                Category
+              </label>
+              <select
+                value={reqCategory}
+                onChange={(e) => setReqCategory(e.target.value)}
+                className="w-full bg-[#222222] border border-[#2A2A2A] rounded px-3 py-2 text-white outline-none focus:border-[#E10600] cursor-pointer"
+              >
+                <option value="Engine Parts">Engine Parts</option>
+                <option value="Braking Systems">Braking Systems</option>
+                <option value="Electrical & Ignition">Electrical & Ignition</option>
+                <option value="Carburetors & Fuel">Carburetors & Fuel</option>
+                <option value="Body & Trim">Body & Trim</option>
+                <option value="Transmission & Drivetrain">Transmission & Drivetrain</option>
+              </select>
             </div>
           </div>
 
@@ -363,7 +396,7 @@ export const WantedParts: React.FC = () => {
               <input
                 type="number"
                 required
-                placeholder="e.g. 3500"
+                placeholder="e.g. 4500"
                 value={reqBudget}
                 onChange={(e) => setReqBudget(e.target.value)}
                 className="w-full bg-[#222222] border border-[#2A2A2A] rounded px-3 py-2 text-white outline-none focus:border-[#E10600]"
@@ -372,48 +405,57 @@ export const WantedParts: React.FC = () => {
 
             <div>
               <label className="block text-[11px] font-bold text-[#888888] font-mono uppercase mb-1">
-                Urgency
+                Sourcing Urgency
               </label>
               <select
                 value={reqUrgency}
                 onChange={(e: any) => setReqUrgency(e.target.value)}
                 className="w-full bg-[#222222] border border-[#2A2A2A] rounded px-3 py-2 text-white outline-none focus:border-[#E10600] cursor-pointer"
               >
-                <option value="urgent">🔴 Urgent (Need in 3 days)</option>
-                <option value="moderate">🟡 Moderate (Within 2 weeks)</option>
-                <option value="flexible">🟢 Flexible (Ongoing build)</option>
+                <option value="urgent">🔴 Urgent</option>
+                <option value="moderate">🟡 Moderate</option>
+                <option value="flexible">🟢 Flexible</option>
               </select>
             </div>
           </div>
 
           <div>
             <label className="block text-[11px] font-bold text-[#888888] font-mono uppercase mb-1">
-              Part Description & Desired Condition *
+              Required Condition
+            </label>
+            <select
+              value={reqCondition}
+              onChange={(e: any) => setReqCondition(e.target.value)}
+              className="w-full bg-[#222222] border border-[#2A2A2A] rounded px-3 py-2 text-white outline-none focus:border-[#E10600] cursor-pointer"
+            >
+              <option value="NOS Only">NOS (New Old Stock) Only</option>
+              <option value="Good Used">Good Used OEM</option>
+              <option value="Restorable">Restorable Period Spec</option>
+              <option value="Any Condition">Any Condition</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-[11px] font-bold text-[#888888] font-mono uppercase mb-1">
+              Detailed Specifications & Fitment Notes *
             </label>
             <textarea
               required
               rows={3}
-              placeholder="Specify OEM markings, part numbers, casting stamp requirements, or acceptable wear..."
+              placeholder="Provide exact stamping details, casting numbers, or photos you're trying to match..."
               value={reqDesc}
               onChange={(e) => setReqDesc(e.target.value)}
-              className="w-full bg-[#222222] border border-[#2A2A2A] rounded px-3 py-2 text-white outline-none focus:border-[#E10600]"
+              className="w-full bg-[#222222] border border-[#2A2A2A] rounded px-3 py-2 text-white outline-none focus:border-[#E10600] resize-none"
             />
           </div>
 
-          <div className="pt-2 flex justify-end gap-2">
-            <button
-              type="button"
-              onClick={() => setModalOpen(false)}
-              className="bg-[#222222] hover:bg-[#2A2A2A] text-white px-4 py-2 rounded text-xs font-bold uppercase"
-            >
-              Cancel
-            </button>
+          <div className="pt-2">
             <button
               type="submit"
               disabled={submitting}
-              className="bg-[#E10600] hover:bg-[#B20404] text-white px-6 py-2 rounded text-xs font-bold uppercase tracking-wider transition-colors disabled:opacity-50"
+              className="w-full bg-[#E10600] hover:bg-[#B20404] text-white py-2.5 text-xs font-bold uppercase rounded tracking-wider transition-colors disabled:opacity-50"
             >
-              {submitting ? 'Posting...' : 'Post Bounty'}
+              {submitting ? 'Submitting...' : 'Submit Sourcing Request'}
             </button>
           </div>
         </form>

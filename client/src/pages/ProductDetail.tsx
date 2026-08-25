@@ -255,7 +255,7 @@ export const ProductDetail: React.FC = () => {
               </button>
             </div>
 
-            {/* Part Passport Provenance Certificate Trigger */}
+            {/* Provenance Certificate Trigger */}
             <button
               type="button"
               onClick={() => setShowPassportModal(true)}
@@ -263,7 +263,7 @@ export const ProductDetail: React.FC = () => {
             >
               <div className="flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-[#E10600]" />
-                <span className="font-mono text-[11px] uppercase">Part Passport™ Provenance Certificate</span>
+                <span className="font-mono text-[11px] uppercase">Certificate of Provenance & Authenticity</span>
               </div>
               <span className="text-[#E10600] text-xs font-bold">View Certificate →</span>
             </button>

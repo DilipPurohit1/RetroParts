@@ -187,15 +187,15 @@ export const ProductCard: React.FC<ProductCardProps> = ({ listing }) => {
               type="button"
               onClick={handleOpenCertificate}
               className="px-2.5 py-2 rounded bg-[#200A0A] hover:bg-[#2E0E0E] text-[#E10600] border border-[#E10600]/40 text-[10px] font-bold uppercase font-mono tracking-wider transition-colors shrink-0"
-              title="View Certificate"
+              title="View Certificate of Provenance"
             >
-              PASSPORT
+              CERTIFICATE
             </button>
           </div>
         </div>
       </div>
 
-      {/* Part Passport Modal for this Card */}
+      {/* Certificate Modal for this Card */}
       {showCertificate && (
         <PartPassportCertificate
           listing={listing}

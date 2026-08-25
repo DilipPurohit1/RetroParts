@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { Shield, ShieldCheck, Printer, X, FileText, Download, CheckCircle } from 'lucide-react';
 import { IListing } from '../../types/index.js';
 
@@ -36,23 +37,24 @@ export const PartPassportCertificate: React.FC<PartPassportCertificateProps> = (
   };
 
   const isVerified = passport?.status === 'verified' || listing.verificationStatus === 'verified' || true;
-  const passportId = listing.passportId || `PP-${listing._id?.slice(-8).toUpperCase() || 'VINTAGE'}`;
+  const certificateId = listing.passportId || `CERT-${listing._id?.slice(-8).toUpperCase() || 'VINTAGE'}`;
 
-  return (
+  const modalContent = (
     <div
-      className="fixed inset-0 z-[9999] overflow-y-auto bg-black/90 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 animate-fade-in print:p-0 print:bg-white"
+      className="fixed inset-0 !z-[999999] overflow-y-auto bg-black/95 backdrop-blur-lg flex items-center justify-center p-3 sm:p-6 animate-fade-in print:p-0 print:bg-white"
+      style={{ zIndex: 999999 }}
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-3xl bg-[#141414] border border-[#2E2E2E] rounded-xl shadow-2xl text-[#E5E5E5] my-auto max-h-[92vh] flex flex-col print:border-none print:shadow-none print:text-black print:bg-white print:max-h-none print:my-0"
+        className="relative w-full max-w-3xl bg-[#141414] border border-[#2E2E2E] rounded-xl shadow-2xl text-[#E5E5E5] my-auto max-h-[90vh] flex flex-col print:border-none print:shadow-none print:text-black print:bg-white print:max-h-none print:my-0"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Sticky Modal Top Control Bar (Always visible on mobile & desktop) */}
+        {/* Modal Top Header Bar */}
         <div className="flex items-center justify-between p-4 sm:p-5 border-b border-[#262626] bg-[#161616] rounded-t-xl shrink-0 print:hidden">
           <div className="flex items-center gap-2">
             <ShieldCheck className="w-5 h-5 text-[#E10600]" />
             <span className="font-mono text-xs uppercase font-bold text-white tracking-wide">
-              Official Part Passport™ Certificate
+              Certificate of Provenance & Authenticity
             </span>
           </div>
 
@@ -100,7 +102,7 @@ export const PartPassportCertificate: React.FC<PartPassportCertificateProps> = (
                   Certificate of Provenance
                 </h2>
                 <p className="text-xs text-[#888888] font-mono">
-                  Part Passport ID: <span className="text-[#E10600] font-bold">{passportId}</span> • Registered on {new Date(listing.createdAt || Date.now()).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+                  Certificate ID: <span className="text-[#E10600] font-bold">{certificateId}</span> • Registered on {new Date(listing.createdAt || Date.now()).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
                 </p>
               </div>
 
@@ -176,7 +178,7 @@ export const PartPassportCertificate: React.FC<PartPassportCertificateProps> = (
           </div>
         </div>
 
-        {/* Modal Bottom Action Bar (Easy touch targets on mobile) */}
+        {/* Modal Bottom Action Bar */}
         <div className="flex items-center justify-between p-4 border-t border-[#262626] bg-[#161616] rounded-b-xl shrink-0 print:hidden">
           <span className="text-[11px] text-[#888888] font-mono hidden sm:inline">
             Press ESC or click outside to close
@@ -201,4 +203,6 @@ export const PartPassportCertificate: React.FC<PartPassportCertificateProps> = (
       </div>
     </div>
   );
+
+  return typeof document !== 'undefined' ? createPortal(modalContent, document.body) : modalContent;
 };
