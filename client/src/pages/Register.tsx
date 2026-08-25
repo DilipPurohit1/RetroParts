@@ -15,7 +15,7 @@ export const Register: React.FC = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [role, setRole] = useState<'buyer' | 'seller'>('buyer');
-  const [agreeTerms, setAgreeTerms] = useState(false);
+  const [agreeTerms, setAgreeTerms] = useState(true);
   const [loading, setLoading] = useState(false);
 
   const { register } = useAuth();
@@ -172,6 +172,26 @@ export const Register: React.FC = () => {
             <ShieldCheck className="w-4 h-4 text-verified shrink-0" />
             <span>All buyer transactions are protected under RetroParts Escrow Inspection.</span>
           </div>
+
+          {/* Terms & Conditions Checkbox */}
+          <label className="flex items-start gap-2.5 text-xs text-text-secondary cursor-pointer select-none">
+            <input
+              type="checkbox"
+              checked={agreeTerms}
+              onChange={(e) => setAgreeTerms(e.target.checked)}
+              className="mt-0.5 w-4 h-4 rounded border-border bg-surface text-accent focus:ring-accent accent-[#E10600] cursor-pointer"
+            />
+            <span>
+              I agree to the{' '}
+              <Link to="/about" className="text-accent underline hover:text-white">
+                Terms of Service
+              </Link>{' '}
+              and{' '}
+              <Link to="/about" className="text-accent underline hover:text-white">
+                Privacy Policy
+              </Link>
+            </span>
+          </label>
 
           <Button
             type="submit"
