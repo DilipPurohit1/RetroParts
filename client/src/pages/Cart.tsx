@@ -141,9 +141,9 @@ export const Cart: React.FC = () => {
               <span>Standard Shipping</span>
               <span className="text-white">{formatPrice(shippingTotal)}</span>
             </div>
-            <div className="flex justify-between text-base font-bold border-t border-[#2A2A2A] pt-3">
-              <span className="text-white font-sans uppercase">Total Amount</span>
-              <span className="text-[#E10600]">{formatPrice(total)}</span>
+            <div className="flex items-center justify-between p-3 rounded-lg bg-[#222222] border border-[#333333] mt-2">
+              <span className="text-white font-sans uppercase font-black text-xs">Total Amount</span>
+              <span className="text-white font-mono text-base font-black tracking-tight">{formatPrice(total)}</span>
             </div>
           </div>
 

@@ -103,7 +103,7 @@ export const CartDrawer: React.FC = () => {
                     <h4 className="text-xs font-bold text-white truncate">
                       {item.title}
                     </h4>
-                    <p className="text-xs font-mono font-bold text-[#E10600]">
+                    <p className="text-xs font-mono font-bold text-white">
                       {formatPrice(item.price)}
                     </p>
                     <div className="flex items-center gap-2 text-[11px] text-[#888888]">
@@ -138,9 +138,10 @@ export const CartDrawer: React.FC = () => {
                   <span>Shipping</span>
                   <span className="text-white font-bold">{formatPrice(shipping)}</span>
                 </div>
-                <div className="flex justify-between text-sm font-bold border-t border-[#2A2A2A] pt-2">
-                  <span className="text-white font-sans uppercase">Total</span>
-                  <span className="text-[#E10600] text-base">{formatPrice(total)}</span>
+                {/* High-Contrast Crystal-Clear Total */}
+                <div className="flex items-center justify-between p-3 rounded-lg bg-[#222222] border border-[#333333] mt-2">
+                  <span className="text-white font-display uppercase tracking-wider text-xs font-black">TOTAL</span>
+                  <span className="text-white font-mono text-base font-black tracking-tight">{formatPrice(total)}</span>
                 </div>
               </div>
 
