@@ -7,8 +7,10 @@ import { useWishlist } from '../../context/WishlistContext.js';
 
 export const MobileBottomNav: React.FC = () => {
   const { isAuthenticated } = useAuth();
-  const { itemCount } = useCart();
+  const { itemCount, isCartDrawerOpen } = useCart();
   const { wishlist } = useWishlist();
+
+  if (isCartDrawerOpen) return null;
 
   const navItems = [
     { label: 'Home', path: '/', icon: Home, badge: 0 },
