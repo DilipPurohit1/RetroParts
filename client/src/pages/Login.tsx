@@ -5,7 +5,6 @@ import { useAuth } from '../context/AuthContext.js';
 import { Button } from '../components/common/Button.js';
 import { Input } from '../components/common/Input.js';
 import { HeritageLogo } from '../components/common/HeritageLogo.js';
-import { GoogleSignInModal } from '../components/common/GoogleSignInModal.js';
 import { GoogleAuthButton } from '../components/common/GoogleAuthButton.js';
 
 export const Login: React.FC = () => {
@@ -13,7 +12,6 @@ export const Login: React.FC = () => {
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [isGoogleModalOpen, setIsGoogleModalOpen] = useState(false);
 
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -48,11 +46,10 @@ export const Login: React.FC = () => {
 
       {/* Login Card */}
       <div className="p-6 sm:p-8 rounded-card bg-surface border border-border space-y-6">
-        {/* Real Google OAuth & GSI Button */}
+        {/* Real Direct Google OAuth Button */}
         <GoogleAuthButton
           text="continue_with"
           onSuccess={() => navigate(from, { replace: true })}
-          onFallbackClick={() => setIsGoogleModalOpen(true)}
         />
 
         <div className="flex items-center gap-3">
@@ -115,13 +112,6 @@ export const Login: React.FC = () => {
           </Link>
         </div>
       </div>
-
-      {/* Google Sign In Modal */}
-      <GoogleSignInModal
-        isOpen={isGoogleModalOpen}
-        onClose={() => setIsGoogleModalOpen(false)}
-        onSuccess={() => navigate(from, { replace: true })}
-      />
     </div>
   );
 };

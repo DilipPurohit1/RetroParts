@@ -10,7 +10,7 @@ interface AuthContextType {
   login: (credentials: { email: string; password: string }) => Promise<boolean>;
   register: (userData: any) => Promise<boolean>;
   demoLogin: (email: string) => Promise<boolean>;
-  googleSignIn: (data: { email: string; name?: string; avatar?: string }) => Promise<boolean>;
+  googleSignIn: (data: { email: string; name?: string; avatar?: string; sub?: string }) => Promise<boolean>;
   logout: () => void;
   updateUser: (userData: Partial<IUser>) => void;
   refreshUser: () => Promise<void>;
@@ -56,10 +56,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       localStorage.setItem('retroparts_token', res.token);
       setToken(res.token);
       setUser(res.user);
-      success(`Welcome back, ${res.user.name}!`, 'Logged in');
+      success(`Welcome back, ${res.user.name}!`, 'Sign In Successful');
       return true;
     } catch (err: any) {
-      error(err.response?.data?.message || 'Invalid email or password.', 'Login Failed');
+      error(err.message || err.response?.data?.message || 'Invalid email or password.', 'Sign In Failed');
       return false;
     } finally {
       setLoading(false);
@@ -70,7 +70,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     return login({ email, password: 'password123' });
   };
 
-  const googleSignIn = async (data: { email: string; name?: string; avatar?: string }): Promise<boolean> => {
+  const googleSignIn = async (data: { email: string; name?: string; avatar?: string; sub?: string }): Promise<boolean> => {
     try {
       setLoading(true);
       const res = await authService.googleLogin(data);
@@ -80,7 +80,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       success(`Signed in with Google as ${res.user.name}!`, 'Google Sign-In');
       return true;
     } catch (err: any) {
-      error(err.response?.data?.message || 'Google sign-in failed.', 'Error');
+      error(err.message || err.response?.data?.message || 'Google sign-in failed.', 'Error');
       return false;
     } finally {
       setLoading(false);
@@ -97,7 +97,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       success(`Account created successfully! Welcome to RetroParts, ${res.user.name}.`, 'Welcome Aboard');
       return true;
     } catch (err: any) {
-      error(err.response?.data?.message || 'Registration failed.', 'Error');
+      error(err.message || err.response?.data?.message || 'Registration failed.', 'Registration Error');
       return false;
     } finally {
       setLoading(false);
