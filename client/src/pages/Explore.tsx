@@ -307,27 +307,27 @@ export const Explore: React.FC = () => {
               </div>
             </div>
 
-            {/* Product Grid */}
+            {/* Product Grid - 2 columns on mobile, 3/4 on desktop */}
             {loading ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
                 {Array.from({ length: 8 }).map((_, i) => (
                   <ProductCardSkeleton key={i} />
                 ))}
               </div>
             ) : listings.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
                 {listings.map((listing) => (
                   <ProductCard key={listing._id} listing={listing} />
                 ))}
               </div>
             ) : (
-              <div className="p-12 text-center bg-[#161616] border border-[#2A2A2A] rounded space-y-4">
+              <div className="p-8 sm:p-12 text-center bg-[#161616] border border-[#2A2A2A] rounded space-y-4">
                 <HelpCircle className="w-10 h-10 text-[#E10600] mx-auto" />
                 <h3 className="text-lg font-bold text-white uppercase font-display">
                   No parts found matching your criteria
                 </h3>
                 <p className="text-xs text-[#888888] max-w-md mx-auto">
-                  Can't find what you are searching for? Post a Rare Part Bounty to alert our network of classic stockists.
+                  Can't find what you are searching for? Submit a Rare Part Sourcing Request to alert our network of classic stockists.
                 </p>
                 <div className="flex justify-center gap-3 pt-2">
                   <button
@@ -342,7 +342,7 @@ export const Explore: React.FC = () => {
                       type="button"
                       className="bg-[#E10600] hover:bg-[#B20404] text-white px-5 py-2 rounded text-xs font-bold uppercase"
                     >
-                      Post Wanted Bounty
+                      Submit Part Request
                     </button>
                   </Link>
                 </div>

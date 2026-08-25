@@ -392,6 +392,59 @@ export const Navbar: React.FC = () => {
           <Link to="/contact" onClick={() => setMobileMenuOpen(false)} className="block py-2 text-[#E5E5E5] hover:text-[#E10600]">
             Contact Concierge
           </Link>
+
+          {/* Mobile User Profile & 1-Tap Sign Out */}
+          <div className="pt-3 border-t border-[#2A2A2A] space-y-2">
+            {isAuthenticated ? (
+              <div className="space-y-2 bg-[#202020] p-3 rounded border border-[#2E2E2E]">
+                <div className="flex items-center justify-between">
+                  <div className="min-w-0 pr-2">
+                    <p className="font-bold text-white text-xs truncate">{user?.name}</p>
+                    <p className="text-[10px] text-[#888888] font-mono truncate">{user?.email}</p>
+                  </div>
+                  <span className="px-2 py-0.5 rounded bg-[#E10600]/20 text-[#E10600] text-[9px] font-mono font-bold uppercase shrink-0">
+                    {user?.role || 'Buyer'}
+                  </span>
+                </div>
+                <div className="grid grid-cols-2 gap-2 pt-1">
+                  <Link
+                    to="/dashboard"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="text-center py-1.5 rounded bg-[#2A2A2A] text-white text-[11px] font-bold hover:bg-[#333333]"
+                  >
+                    Dashboard
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      handleLogout();
+                      setMobileMenuOpen(false);
+                    }}
+                    className="flex items-center justify-center gap-1.5 py-1.5 rounded bg-[#E10600] text-white text-[11px] font-bold hover:bg-[#B20404]"
+                  >
+                    <LogOut className="w-3.5 h-3.5" /> Sign Out
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 gap-2 pt-1">
+                <Link
+                  to="/login"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-center py-2 rounded bg-[#222222] border border-[#333333] text-white text-xs font-bold"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  to="/register"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-center py-2 rounded bg-[#E10600] text-white text-xs font-bold"
+                >
+                  Create Account
+                </Link>
+              </div>
+            )}
+          </div>
         </div>
       )}
     </header>

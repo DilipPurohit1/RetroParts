@@ -10,6 +10,7 @@ import {
   Truck,
   ChevronRight,
   PlusCircle,
+  LogOut,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext.js';
 import { useWishlist } from '../context/WishlistContext.js';
@@ -25,9 +26,14 @@ export const UserDashboard: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const activeTab = searchParams.get('tab') || 'orders';
 
-  const { user, isAuthenticated } = useAuth();
+  const { user, isAuthenticated, logout } = useAuth();
   const { wishlist } = useWishlist();
   const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
 
   const [orders, setOrders] = useState<IOrder[]>([]);
   const [myBounties, setMyBounties] = useState<IWantedPart[]>([]);
@@ -86,7 +92,7 @@ export const UserDashboard: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2.5">
           <Link to="/explore">
             <Button variant="primary" size="sm" rightIcon={<ShoppingBag className="w-4 h-4" />}>
               Browse catalog
@@ -94,9 +100,16 @@ export const UserDashboard: React.FC = () => {
           </Link>
           <Link to="/wanted">
             <Button variant="secondary" size="sm" leftIcon={<HelpCircle className="w-4 h-4 text-accent" />}>
-              Post bounty
+              Part Sourcing
             </Button>
           </Link>
+          <button
+            type="button"
+            onClick={handleLogout}
+            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded text-xs font-bold uppercase tracking-wider bg-[#200A0A] hover:bg-[#E10600] text-[#E10600] hover:text-white border border-[#E10600]/40 transition-colors"
+          >
+            <LogOut className="w-3.5 h-3.5" /> Sign Out
+          </button>
         </div>
       </div>
 
