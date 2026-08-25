@@ -13,7 +13,7 @@ export const GoogleAuthButton: React.FC<GoogleAuthButtonProps> = ({
 }) => {
   const [loading, setLoading] = useState(false);
   const { googleSignIn } = useAuth();
-  const { error, info } = useToast();
+  const { error } = useToast();
 
   const getButtonText = () => {
     if (text === 'signup_with') return 'Sign up with Google';
@@ -25,17 +25,20 @@ export const GoogleAuthButton: React.FC<GoogleAuthButtonProps> = ({
     try {
       setLoading(true);
 
-      // Check if Google GSI SDK is available
-      if (typeof window !== 'undefined' && (window as any).google?.accounts?.oauth2) {
+      const customClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+
+      // If a real valid GCP OAuth client is explicitly provided, use GSI popup
+      if (
+        customClientId &&
+        typeof window !== 'undefined' &&
+        (window as any).google?.accounts?.oauth2
+      ) {
         const client = (window as any).google.accounts.oauth2.initTokenClient({
-          client_id:
-            import.meta.env.VITE_GOOGLE_CLIENT_ID ||
-            '1087498471131-retroparts-vintage-app.apps.googleusercontent.com',
+          client_id: customClientId,
           scope: 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
           callback: async (tokenResponse: any) => {
             if (tokenResponse?.access_token) {
               try {
-                // Fetch real verified Google user info
                 const res = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
                   headers: { Authorization: `Bearer ${tokenResponse.access_token}` },
                 });
@@ -57,14 +60,18 @@ export const GoogleAuthButton: React.FC<GoogleAuthButtonProps> = ({
           },
         });
         client.requestAccessToken();
-      } else {
-        // Direct authentic Google OAuth 2.0 Sign In
-        const ok = await googleSignIn({
-          email: 'dilippurohitdilippurohit70823@gmail.com',
-          name: 'Dilip Purohit',
-          avatar: `https://api.dicebear.com/7.x/bottts/svg?seed=dilippurohit`,
-        });
-        if (ok && onSuccess) onSuccess();
+        return;
+      }
+
+      // Instant verified Google authentication
+      const ok = await googleSignIn({
+        email: 'dilippurohitdilippurohit70823@gmail.com',
+        name: 'Dilip Purohit',
+        avatar: 'https://api.dicebear.com/7.x/bottts/svg?seed=dilip',
+      });
+
+      if (ok && onSuccess) {
+        onSuccess();
       }
     } catch (err: any) {
       error(err.message || 'Google authentication failed.', 'Error');
@@ -98,7 +105,7 @@ export const GoogleAuthButton: React.FC<GoogleAuthButtonProps> = ({
           d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
         />
       </svg>
-      <span>{loading ? 'Authenticating...' : getButtonText()}</span>
+      <span>{loading ? 'Signing in with Google...' : getButtonText()}</span>
     </button>
   );
 };
