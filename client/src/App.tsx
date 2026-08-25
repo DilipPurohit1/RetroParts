@@ -76,6 +76,8 @@ export function App() {
                           <Route path="/explore" element={<Explore />} />
                           <Route path="/search" element={<Explore />} />
                           <Route path="/parts/:id" element={<ProductDetail />} />
+                          <Route path="/product/:id" element={<ProductDetail />} />
+                          <Route path="/part/:id" element={<ProductDetail />} />
                           <Route path="/parts/slug/:slug" element={<ProductDetail />} />
                           <Route path="/listings/:id" element={<ProductDetail />} />
                           <Route

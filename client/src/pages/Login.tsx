@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Lock, Mail, ArrowRight, Sparkles } from 'lucide-react';
+import { Lock, Mail, ArrowRight } from 'lucide-react';
 import { useAuth } from '../context/AuthContext.js';
-import { DEMO_USERS } from '../utils/constants.js';
 import { Button } from '../components/common/Button.js';
 import { Input } from '../components/common/Input.js';
 import { HeritageLogo } from '../components/common/HeritageLogo.js';
@@ -16,7 +15,7 @@ export const Login: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [isGoogleModalOpen, setIsGoogleModalOpen] = useState(false);
 
-  const { login, demoLogin } = useAuth();
+  const { login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -28,15 +27,6 @@ export const Login: React.FC = () => {
 
     setLoading(true);
     const success = await login({ email, password });
-    setLoading(false);
-    if (success) {
-      navigate(from, { replace: true });
-    }
-  };
-
-  const handleQuickDemoLogin = async (demoEmail: string) => {
-    setLoading(true);
-    const success = await demoLogin(demoEmail);
     setLoading(false);
     if (success) {
       navigate(from, { replace: true });
@@ -116,37 +106,6 @@ export const Login: React.FC = () => {
             Sign in
           </Button>
         </form>
-
-        {/* 1-Click Instant Demo Logins */}
-        <div className="pt-4 border-t border-border space-y-3">
-          <div className="flex items-center justify-between">
-            <span className="text-[11px] uppercase font-medium text-text-muted flex items-center gap-1">
-              <Sparkles className="w-3 h-3 text-accent" /> Instant 1-click demo accounts
-            </span>
-          </div>
-
-          <div className="space-y-2">
-            {DEMO_USERS.map((demo) => (
-              <button
-                key={demo.email}
-                type="button"
-                onClick={() => handleQuickDemoLogin(demo.email)}
-                disabled={loading}
-                className="w-full p-2.5 rounded bg-surface-raised border border-border hover:border-accent hover:bg-surface text-left transition-colors flex items-center justify-between group"
-              >
-                <div>
-                  <span className="text-[13px] font-medium text-text-primary group-hover:text-accent transition-colors">
-                    {demo.role}: {demo.name}
-                  </span>
-                  <p className="text-[11px] text-text-muted line-clamp-1">{demo.desc}</p>
-                </div>
-                <span className="text-[11px] font-medium text-accent px-2 py-0.5 rounded bg-surface border border-border shrink-0">
-                  Login →
-                </span>
-              </button>
-            ))}
-          </div>
-        </div>
 
         {/* Register Link */}
         <div className="pt-2 text-center text-[13px] text-text-muted">

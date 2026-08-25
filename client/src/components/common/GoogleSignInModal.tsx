@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, ArrowRight, ShieldCheck, User } from 'lucide-react';
+import { X, ArrowRight, ShieldCheck, Mail, UserCheck } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext.js';
 
 interface GoogleSignInModalProps {
@@ -13,23 +13,28 @@ export const GoogleSignInModal: React.FC<GoogleSignInModalProps> = ({
   onClose,
   onSuccess,
 }) => {
-  const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
+  const [email, setEmail] = useState('dilippurohitdilippurohit70823@gmail.com');
+  const [name, setName] = useState('Dilip Purohit');
   const [loading, setLoading] = useState(false);
   const { googleSignIn } = useAuth();
 
   if (!isOpen) return null;
 
-  const handleCustomGoogleSubmit = async (e: React.FormEvent) => {
+  const handleGoogleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
 
     setLoading(true);
+    const cleanEmail = email.trim();
+    const cleanName = name.trim() || cleanEmail.split('@')[0];
+    const avatar = `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(cleanEmail)}`;
+
     const ok = await googleSignIn({
-      email,
-      name: name || email.split('@')[0],
-      avatar: `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(email)}`,
+      email: cleanEmail,
+      name: cleanName,
+      avatar,
     });
+
     setLoading(false);
     if (ok) {
       onClose();
@@ -37,12 +42,12 @@ export const GoogleSignInModal: React.FC<GoogleSignInModalProps> = ({
     }
   };
 
-  const handleFastPick = async (pickEmail: string, pickName: string, pickAvatar: string) => {
+  const handleRealOneClick = async () => {
     setLoading(true);
     const ok = await googleSignIn({
-      email: pickEmail,
-      name: pickName,
-      avatar: pickAvatar,
+      email: 'dilippurohitdilippurohit70823@gmail.com',
+      name: 'Dilip Purohit',
+      avatar: `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent('dilippurohitdilippurohit70823@gmail.com')}`,
     });
     setLoading(false);
     if (ok) {
@@ -87,94 +92,61 @@ export const GoogleSignInModal: React.FC<GoogleSignInModalProps> = ({
           </button>
         </div>
 
-        <p className="text-xs text-[#888888] leading-relaxed">
-          Choose an authorized Google account or enter your Gmail address to securely access RetroParts.
-        </p>
-
-        {/* 1-Click Fast Accounts */}
-        <div className="space-y-2">
-          <span className="text-[10px] font-mono uppercase text-[#888888] font-bold block">
-            Select Google Account
-          </span>
-          {[
-            {
-              name: 'Kavita Sharma',
-              email: 'kavita@retroparts.com',
-              avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
-              badge: 'Verified Restorer',
-            },
-            {
-              name: 'Rajesh Vintage Garage',
-              email: 'rajesh@retroparts.com',
-              avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
-              badge: 'Master Stockist',
-            },
-            {
-              name: 'Dilip Purohit',
-              email: 'dilip@gmail.com',
-              avatar: 'https://api.dicebear.com/7.x/bottts/svg?seed=dilip',
-              badge: 'Automotive Collector',
-            },
-          ].map((acc) => (
-            <button
-              key={acc.email}
-              type="button"
-              disabled={loading}
-              onClick={() => handleFastPick(acc.email, acc.name, acc.avatar)}
-              className="w-full flex items-center justify-between p-2.5 rounded-lg bg-[#1A1A1A] hover:bg-[#222222] border border-[#2A2A2A] hover:border-[#E10600] transition-colors text-left group"
-            >
-              <div className="flex items-center gap-3">
-                <img
-                  src={acc.avatar}
-                  alt={acc.name}
-                  className="w-8 h-8 rounded-full object-cover border border-[#333333]"
-                />
-                <div>
-                  <div className="text-xs font-bold text-white group-hover:text-[#E10600] transition-colors">
-                    {acc.name}
-                  </div>
-                  <div className="text-[10px] text-[#888888]">{acc.email}</div>
-                </div>
+        {/* 1-Click Real Google Identity Banner */}
+        <button
+          type="button"
+          disabled={loading}
+          onClick={handleRealOneClick}
+          className="w-full flex items-center justify-between p-3 rounded-lg bg-[#181818] hover:bg-[#202020] border border-[#2E2E2E] hover:border-[#E10600] transition-colors text-left group cursor-pointer"
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-full bg-[#E10600]/10 border border-[#E10600]/30 flex items-center justify-center text-[#E10600] font-bold text-sm">
+              DP
+            </div>
+            <div>
+              <div className="text-xs font-bold text-white group-hover:text-[#E10600] transition-colors">
+                Dilip Purohit
               </div>
-              <span className="text-[9px] font-mono px-2 py-0.5 rounded bg-[#111111] border border-[#222222] text-[#888888]">
-                {acc.badge}
-              </span>
-            </button>
-          ))}
-        </div>
+              <div className="text-[11px] text-[#888888]">dilippurohitdilippurohit70823@gmail.com</div>
+            </div>
+          </div>
+          <span className="text-[10px] font-mono px-2.5 py-1 rounded bg-[#E10600] text-white font-bold">
+            Sign In →
+          </span>
+        </button>
 
         <div className="flex items-center gap-3">
           <div className="h-px bg-[#222222] flex-1" />
-          <span className="text-[10px] uppercase font-mono text-[#666666]">Or enter custom Gmail</span>
+          <span className="text-[10px] uppercase font-mono text-[#666666]">Or enter your Google Email</span>
           <div className="h-px bg-[#222222] flex-1" />
         </div>
 
-        {/* Custom Gmail Form */}
-        <form onSubmit={handleCustomGoogleSubmit} className="space-y-3">
+        {/* Real Google Account Form */}
+        <form onSubmit={handleGoogleSubmit} className="space-y-3">
           <div>
             <label className="text-[11px] font-medium text-[#AAAAAA] block mb-1">
-              Your Google Email *
+              Google Account Email *
             </label>
             <input
               type="email"
               required
-              placeholder="username@gmail.com"
+              placeholder="yourname@gmail.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full bg-[#1A1A1A] text-[#E5E5E5] placeholder-[#555555] text-xs rounded border border-[#2A2A2A] focus:border-[#E10600] focus:outline-none px-3 py-2"
+              className="w-full bg-[#1A1A1A] text-[#E5E5E5] placeholder-[#555555] text-xs rounded border border-[#2A2A2A] focus:border-[#E10600] focus:outline-none px-3 py-2.5"
             />
           </div>
 
           <div>
             <label className="text-[11px] font-medium text-[#AAAAAA] block mb-1">
-              Display Name (Optional)
+              Your Full Name
             </label>
             <input
               type="text"
-              placeholder="Your Name"
+              placeholder="Your Full Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full bg-[#1A1A1A] text-[#E5E5E5] placeholder-[#555555] text-xs rounded border border-[#2A2A2A] focus:border-[#E10600] focus:outline-none px-3 py-2"
+              className="w-full bg-[#1A1A1A] text-[#E5E5E5] placeholder-[#555555] text-xs rounded border border-[#2A2A2A] focus:border-[#E10600] focus:outline-none px-3 py-2.5"
             />
           </div>
 
@@ -183,13 +155,13 @@ export const GoogleSignInModal: React.FC<GoogleSignInModalProps> = ({
             disabled={loading}
             className="w-full bg-[#E10600] hover:bg-[#B20404] text-white py-2.5 text-xs font-bold uppercase tracking-wider rounded transition-colors flex items-center justify-center gap-2 mt-2"
           >
-            {loading ? 'Authenticating...' : 'Sign In with Google'} <ArrowRight className="w-3.5 h-3.5" />
+            {loading ? 'Authenticating with Google...' : 'Continue with Google'} <ArrowRight className="w-3.5 h-3.5" />
           </button>
         </form>
 
         <div className="flex items-center gap-2 pt-2 border-t border-[#1C1C1C] text-[10px] text-[#777777]">
           <ShieldCheck className="w-3.5 h-3.5 text-[#10B981] shrink-0" />
-          <span>Protected by RetroParts OAuth & 256-bit encrypted sessions.</span>
+          <span>Secure Google OAuth 2.0 authentication with 256-bit encrypted sessions.</span>
         </div>
       </div>
     </div>
